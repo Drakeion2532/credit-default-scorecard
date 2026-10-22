@@ -7,7 +7,7 @@ Predicts which loan applicants will default, then sets the approval cut-off by *
 ![ROC and cost curves](results/roc_and_cost.png)
 
 ## Data
-- German Credit dataset: **1,000 loan applicants, 30% defaulted** (bad = 300, good = 700).
+- German Credit dataset: **1,000 loan applicants, 30% defaulted** (bad = 300, good = 700). The file is the labelled CSV `GermanCredit.csv` from [selva86/datasets](https://github.com/selva86/datasets), a version of the UCI Statlog German Credit data (Hofmann, 1994).
 - 70/30 stratified split: 700 for training (5-fold cross-validation), 300 held out for the final test.
 - **Removed on fair-lending grounds:** sex/marital status and foreign-worker status. Age is kept; see Limits.
 
