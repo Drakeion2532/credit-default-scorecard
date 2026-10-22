@@ -1,0 +1,142 @@
+{
+  "n_applicants": 1000,
+  "default_rate": 0.3,
+  "n_train": 700,
+  "n_test": 300,
+  "excluded_features": [
+    "personal_status_sex",
+    "foreign_worker"
+  ],
+  "cost_matrix": {
+    "approve_bad": 5.0,
+    "reject_good": 1.0
+  },
+  "models": {
+    "logistic_scorecard": {
+      "cv_train": {
+        "roc_auc": 0.764,
+        "gini": 0.528,
+        "ks": 0.414,
+        "pr_auc": 0.575
+      },
+      "test": {
+        "roc_auc": 0.798,
+        "gini": 0.596,
+        "ks": 0.483,
+        "pr_auc": 0.631
+      },
+      "test_at_cost_threshold": {
+        "threshold": 0.14,
+        "approval_rate": 0.3,
+        "bad_recall": 0.911,
+        "bad_precision": 0.39,
+        "bad_rate_in_approved": 0.089,
+        "missed_defaults": 8,
+        "good_rejected": 128,
+        "cost_per_applicant": 0.56
+      },
+      "test_at_0.5": {
+        "threshold": 0.5,
+        "approval_rate": 0.787,
+        "bad_recall": 0.478,
+        "bad_precision": 0.672,
+        "bad_rate_in_approved": 0.199,
+        "missed_defaults": 47,
+        "good_rejected": 21,
+        "cost_per_applicant": 0.853
+      }
+    },
+    "gradient_boosting": {
+      "cv_train": {
+        "roc_auc": 0.765,
+        "gini": 0.529,
+        "ks": 0.414,
+        "pr_auc": 0.555
+      },
+      "test": {
+        "roc_auc": 0.777,
+        "gini": 0.554,
+        "ks": 0.449,
+        "pr_auc": 0.591
+      },
+      "test_at_cost_threshold": {
+        "threshold": 0.15,
+        "approval_rate": 0.397,
+        "bad_recall": 0.856,
+        "bad_precision": 0.425,
+        "bad_rate_in_approved": 0.109,
+        "missed_defaults": 13,
+        "good_rejected": 104,
+        "cost_per_applicant": 0.563
+      },
+      "test_at_0.5": {
+        "threshold": 0.5,
+        "approval_rate": 0.787,
+        "bad_recall": 0.422,
+        "bad_precision": 0.594,
+        "bad_rate_in_approved": 0.22,
+        "missed_defaults": 52,
+        "good_rejected": 26,
+        "cost_per_applicant": 0.953
+      }
+    }
+  },
+  "baseline_approve_all": {
+    "cost_per_applicant": 1.5,
+    "bad_rate_in_approved": 0.3
+  },
+  "scorecard": {
+    "base_points": 467.6,
+    "scaling": "600 pts at 50:1 good:bad odds, 20 points to double the odds",
+    "top_attributes": [
+      {
+        "feature": "cat__status_no checking account",
+        "points_per_unit": 40.5
+      },
+      {
+        "feature": "cat__savings_unknown/no savings account",
+        "points_per_unit": 27.6
+      },
+      {
+        "feature": "cat__credit_history_critical account/other credits existing",
+        "points_per_unit": 26.4
+      },
+      {
+        "feature": "cat__purpose_retraining",
+        "points_per_unit": -25.0
+      },
+      {
+        "feature": "cat__employment_duration_4 <= ... < 7 years",
+        "points_per_unit": 23.3
+      },
+      {
+        "feature": "cat__savings_... >= 1000 DM",
+        "points_per_unit": 22.4
+      },
+      {
+        "feature": "cat__other_installment_plans_none",
+        "points_per_unit": 20.4
+      },
+      {
+        "feature": "cat__housing_rent",
+        "points_per_unit": -20.0
+      },
+      {
+        "feature": "cat__purpose_car (used)",
+        "points_per_unit": 15.4
+      },
+      {
+        "feature": "cat__other_debtors_guarantor",
+        "points_per_unit": 15.0
+      },
+      {
+        "feature": "cat__property_unknown/no property",
+        "points_per_unit": -14.8
+      },
+      {
+        "feature": "cat__purpose_furniture/equipment",
+        "points_per_unit": 12.8
+      }
+    ]
+  }
+}
