@@ -1,5 +1,7 @@
 # Credit Default Scorecard: German Credit
 
+[![tests](https://github.com/Drakeion2532/credit-default-scorecard/actions/workflows/tests.yml/badge.svg)](https://github.com/Drakeion2532/credit-default-scorecard/actions/workflows/tests.yml)
+
 Predicts which loan applicants will default, then sets the approval cut-off by **business cost** instead of the default 0.5 threshold, and turns the model into a **points-based scorecard** of the kind lenders use.
 
 ![ROC and cost curves](results/roc_and_cost.png)
@@ -47,7 +49,8 @@ The cost-based cut-off lowers expected cost per applicant by **34% vs the 0.5 th
 
 ## Run it
 ```bash
-pip install pandas scikit-learn matplotlib
+pip install -r requirements.txt
 python credit_model.py data/german.data
+pytest -q          # unit tests + a check that the published numbers reproduce exactly
 ```
 Outputs `results/results.json` and `results/roc_and_cost.png`.
