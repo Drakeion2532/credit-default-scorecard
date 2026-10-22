@@ -6,6 +6,39 @@ Predicts which loan applicants will default, then sets the approval cut-off by *
 
 ![ROC and cost curves](results/roc_and_cost.png)
 
+## The real-world problem
+
+Every lender has to decide, for each application, **approve or decline**, and the cost of a wrong decision is lopsided: a loan that defaults loses far more than the profit a good loan earns. Lenders also have to **explain declines** to the applicant (for example through adverse-action notices under US fair-lending rules, or a bank's own customer-communication policy). This project covers that whole loop:
+
+1. a model that ranks applicants by risk (logistic scorecard, the industry-standard choice because it is explainable)
+2. a cut-off chosen by **expected cost**, not by the default 0.5 threshold
+3. a **decision tool for one applicant** that returns approve/decline, a points score and the plain-language reasons
+
+## Decide on one application
+
+```bash
+python decide.py examples/applicant_decline.json
+```
+```json
+{
+  "decision": "decline",
+  "probability_of_default": 0.665,
+  "score": 467,
+  "cutoff_probability": 0.14,
+  "main_reasons": [
+    {"characteristic": "status", "reason": "Balance or history of the existing checking account", "value": "... < 100 DM", "points_lost_vs_average": 17.9},
+    {"characteristic": "other_installment_plans", "reason": "Other instalment plans already running", "value": "bank", "points_lost_vs_average": 16.9},
+    {"characteristic": "housing", "reason": "Housing situation (renting or living rent-free)", "value": "rent", "points_lost_vs_average": 14.5},
+    {"characteristic": "installment_rate", "reason": "Instalment is a high share of disposable income", "value": 4, "points_lost_vs_average": 8.1}
+  ]
+}
+```
+
+* **Reasons** are the characteristics that cost this applicant the most points compared with an average applicant, the same idea as the "points below average" reason codes used with real scorecards.
+* **Age is never cited as a reason**, even though it is still a model input (see Limits).
+* **`--cutoff`** sets a different risk appetite, e.g. `--cutoff 0.25` approves more people.
+* **Bad input is rejected:** missing fields or unknown values produce a clear error that lists the allowed values. Both example applicants are real rows from the held-out test set.
+
 ## Data
 - German Credit dataset: **1,000 loan applicants, 30% defaulted** (bad = 300, good = 700). The file is the labelled CSV `GermanCredit.csv` from [selva86/datasets](https://github.com/selva86/datasets), a version of the UCI Statlog German Credit data (Hofmann, 1994).
 - 70/30 stratified split: 700 for training (5-fold cross-validation), 300 held out for the final test.
@@ -46,11 +79,13 @@ The cost-based cut-off lowers expected cost per applicant by **34% vs the 0.5 th
 - **Wide uncertainty:** a 300-row test set means AUC could move by several points on another split.
 - **Age is still a feature.** Many fair-lending rules restrict its use; a production model would need a fairness review.
 - **No reject inference, no probability calibration check, no time-based validation**, all of which a real scorecard build would include.
+- **Reason codes inherit the data's quirks.** Because of the coding issue above, a record like "existing credits paid back duly" can appear as a risk factor. On real bureau data the reason wording would be reviewed by compliance before use.
 
 ## Run it
 ```bash
 pip install -r requirements.txt
 python credit_model.py data/german.data
+python decide.py examples/applicant_approve.json
 pytest -q          # unit tests + a check that the published numbers reproduce exactly
 ```
 Outputs `results/results.json` and `results/roc_and_cost.png`.
