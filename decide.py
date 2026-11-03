@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Shubhan Punde · https://github.com/Drakeion2532/credit-default-scorecard · MIT licence · sp2532-2e1a8c4e58af
 """Score one loan application and explain the decision.
 
 A lender can't just say "the model says no": when an application is declined, the applicant

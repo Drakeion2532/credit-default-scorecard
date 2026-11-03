@@ -89,3 +89,9 @@ python decide.py examples/applicant_approve.json
 pytest -q          # unit tests + a check that the published numbers reproduce exactly
 ```
 Outputs `results/results.json` and `results/roc_and_cost.png`.
+
+## Licence and credit
+
+MIT © 2026 [Shubhan Punde](https://github.com/Drakeion2532). You're welcome to learn from and reuse this code; the licence requires keeping the copyright notice, and presenting the project as your own work is not permitted. To cite it, use [CITATION.cff](CITATION.cff).
+
+<sub>Project ID: sp2532-2e1a8c4e58af</sub>

@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Shubhan Punde · https://github.com/Drakeion2532/credit-default-scorecard · MIT licence · sp2532-2e1a8c4e58af
 """Credit default model on the German Credit dataset (1,000 loan applicants).
 
 Compares a logistic-regression scorecard with gradient boosting, picks an
