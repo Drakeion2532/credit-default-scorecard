@@ -92,7 +92,7 @@ Outputs `results/results.json` and `results/roc_and_cost.png`.
 
 ## How this was built
 
-I designed the detection logic, threat model and evaluation, and used AI pair-programming (Claude Code) for implementation. Every number in this README was re-run and checked, and the test suite reproduces the key results.
+I designed the approach, features and evaluation (baselines, data splits and metrics), and used AI pair-programming (Claude Code) for implementation. Every number in this README was re-run and checked, and the test suite reproduces the key results.
 
 ## Licence
 
