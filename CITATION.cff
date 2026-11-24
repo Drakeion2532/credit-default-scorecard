@@ -9,7 +9,3 @@ authors:
 repository-code: "https://github.com/Drakeion2532/credit-default-scorecard"
 license: MIT
 date-released: "2026-11-03"
-identifiers:
-  - type: other
-    value: "sp2532-2e1a8c4e58af"
-    description: "Project identifier"
